@@ -7,7 +7,6 @@ const useToaster = () => {
     const id = Math.random() * 99999;
     const { type, message } = data;
     const toasterData = { id, type, message };
-    console.log(toasterData);
     dispatch(addToaster(toasterData));
     setTimeout(() => {
       dispatch(removeToaster(id));

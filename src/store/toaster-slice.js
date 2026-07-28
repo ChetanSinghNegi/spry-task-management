@@ -6,7 +6,6 @@ const toasterSlice = createSlice({
   reducers: {
     addToaster: (state, action) => {
       const { id, message, type } = action.payload;
-      console.log(state, { id, message, type });
       state.push({ id, type, message });
     },
     removeToaster: (state, action) => {
@@ -14,7 +13,6 @@ const toasterSlice = createSlice({
       const updatedState = state.filter((toaster) => {
         return toaster.id !== id;
       });
-      console.log(updatedState, action);
       return updatedState;
     },
   },

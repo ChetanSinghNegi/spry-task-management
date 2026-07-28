@@ -10,11 +10,13 @@ import { editTask, removeTask } from "../store/task-slice";
 import TaskCard from "./TaskCard";
 import Modal from "../modal/Modal";
 import TaskForm from "./add-edit-form/TaskForm";
+import useToaster from "../toaster/useToast";
 
 const CompletedTaskList = () => {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const taskRef = useRef(null);
+  const { setToaster } = useToaster();
 
   const storeTasksData = useSelector((state) => {
     return state?.task;
@@ -24,8 +26,12 @@ const CompletedTaskList = () => {
     try {
       if (!id) return;
       dispatch(removeTask(id));
+      setToaster({ type: "success", message: "✅ Task added successfully." });
     } catch (err) {
-      console.log("ERROR: " + err);
+      setToaster({
+        type: "error",
+        message: "Something Went Wrong!😕",
+      });
     }
   };
 
@@ -41,8 +47,15 @@ const CompletedTaskList = () => {
     try {
       dispatch(editTask(task));
       closeModal();
+      setToaster({
+        type: "info",
+        message: "✏️ Task updated successfully.",
+      });
     } catch (err) {
-      console.log("ERROR: " + err);
+      setToaster({
+        type: "error",
+        message: "Something Went Wrong!😕",
+      });
     }
   };
 
