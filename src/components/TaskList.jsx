@@ -17,11 +17,13 @@ import { useRef, useState } from "react";
 import TaskForm from "./add-edit-form/TaskForm";
 import TaskSummary from "./TaskSummary";
 import TaskFilter from "./TaskFilter";
+import useToaster from "../toaster/useToast";
 
 const TaskList = () => {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const taskRef = useRef(null);
+  const { setToaster } = useToaster();
 
   const storeTasksData = useSelector((state) => {
     return state?.task;
@@ -35,8 +37,19 @@ const TaskList = () => {
   );
 
   const deleteHandler = (id) => {
-    if (!id) return;
-    dispatch(removeTask(id));
+    try {
+      if (!id) return;
+      dispatch(removeTask(id));
+      setToaster({
+        type: "error",
+        message: "🗑️ Task deleted successfully.",
+      });
+    } catch (err) {
+      setToaster({
+        type: "error",
+        message: "Something Went Wrong!😕",
+      });
+    }
   };
 
   const editHandler = (taskId) => {
@@ -48,8 +61,20 @@ const TaskList = () => {
   };
 
   const editSubmitHandler = (task) => {
-    dispatch(editTask(task));
-    closeModal();
+    try {
+      dispatch(editTask(task));
+      setToaster({
+        type: "info",
+        message: "✏️ Task updated successfully.",
+      });
+    } catch (err) {
+      setToaster({
+        type: "error",
+        message: "Something Went Wrong!😕",
+      });
+    } finally {
+      closeModal();
+    }
   };
 
   const closeModal = () => {

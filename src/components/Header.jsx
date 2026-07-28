@@ -4,20 +4,26 @@ import Modal from "../modal/Modal";
 import { addTask } from "../store/task-slice";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router";
+import useToaster from "../toaster/useToast";
+import { type } from "@testing-library/user-event/dist/type";
 
 const Header = () => {
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { setToaster } = useToaster();
 
   const onSubmit = (taskData) => {
     try {
       const updatedTask = { ...taskData };
       dispatch(addTask(updatedTask));
       setOpenModal(false);
+      setToaster({ type: "success", message: "✅ Task added successfully." });
     } catch (err) {
-      //Note: Error State Settlements
-      console.log("Something went Wrong in Submitting");
+      setToaster({
+        type: "error",
+        message: "Something Went Wrong!😕",
+      });
     }
   };
 
