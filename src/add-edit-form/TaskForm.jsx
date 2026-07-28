@@ -4,12 +4,13 @@ export default function TaskForm({
   initialData = {},
   editForm = false,
   onSubmit = null,
+  onCancel = null,
 }) {
   const [formData, setFormData] = useState({
-    title: initialData.title || "",
+    title: initialData.title || "test",
     description: initialData.description || "",
     status: initialData.status || "pending",
-    dueDate: initialData.dueDate || "",
+    dueDate: initialData.dueDate || "2026-07-22",
   });
 
   const [errors, setErrors] = useState({});
@@ -45,9 +46,9 @@ export default function TaskForm({
       setErrors(newErrors);
       return;
     }
-    onSubmit?.({ id: initialData.id, ...formData });
+    const taskId = initialData?.taskId || Math.ceil(Math.random() * 99999);
+    onSubmit?.({ taskId: taskId, ...formData });
   };
-
   return (
     <form
       onSubmit={handleSubmit}
@@ -144,6 +145,9 @@ export default function TaskForm({
         <button
           type="button"
           className="rounded-lg border border-slate-300 px-5 py-2.5 font-medium text-slate-700 transition hover:bg-slate-100"
+          onClick={() => {
+            onCancel && onCancel();
+          }}
         >
           Cancel
         </button>

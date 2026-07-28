@@ -15,19 +15,24 @@ const taskSlice = createSlice({
   },
   reducers: {
     addTask: (state, action) => {
-      console.log(state, action);
       state.tasks.push(action.payload);
     },
-    editTask: (state, action) => {},
+    editTask: (state, action) => {
+      const updatedTasks = state.tasks.map((task) => {
+        if (task.taskId == action.payload.taskId) return action.payload;
+        return task;
+      });
+      state.tasks = updatedTasks;
+    },
     removeTask: (state, action) => {
       const updatedFilter = state.tasks.filter(
         (task) => task.taskId != action.payload,
       );
       state.tasks = updatedFilter;
     },
-    changeFilter: (state, action) => {},
-    changeSort: (state, action) => {},
-    changeOrder: (state, action) => {},
+    // changeFilter: (state, action) => {},
+    // changeSort: (state, action) => {},
+    // changeOrder: (state, action) => {},
   },
 });
 export const { addTask, editTask, removeTask } = taskSlice.actions;

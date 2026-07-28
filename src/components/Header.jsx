@@ -7,13 +7,17 @@ import { useDispatch } from "react-redux";
 const Header = () => {
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
+
   const onSubmit = (taskData) => {
-    const taskId = Math.ceil(Math.random() * 99999);
-    console.log({ taskId: taskId });
-    const updatedTask = { taskId: taskId, ...taskData };
+    const updatedTask = { ...taskData };
     dispatch(addTask(updatedTask));
     setOpenModal(false);
   };
+
+  const closeModal = () => {
+    setOpenModal(false);
+  };
+
   return (
     <>
       <header className="flex justify-between">
@@ -27,13 +31,8 @@ const Header = () => {
           Create New
         </button>
       </header>
-      <Modal
-        openModal={openModal}
-        closeModal={() => {
-          setOpenModal(false);
-        }}
-      >
-        <TaskForm onSubmit={onSubmit} />
+      <Modal openModal={openModal} closeModal={closeModal}>
+        <TaskForm onSubmit={onSubmit} onCancel={closeModal} />
       </Modal>
     </>
   );
