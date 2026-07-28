@@ -31,7 +31,6 @@ const TaskSummary = (props) => {
         const heading = STATUS_HEADING_CONSTANT[status];
         const count = taskIndividualCounts[status];
         const style = getStyle(status);
-        console.log({ style });
         return (
           <li
             className={`rounded-xl border ${style} p-5 shadow-sm`}

@@ -1,5 +1,3 @@
-import logo from "./logo.svg";
-import "./App.css";
 import TaskList from "./components/TaskList";
 import { BrowserRouter, Routes, Route } from "react-router";
 import CompletedTaskList from "./components/CompletedTaskList";

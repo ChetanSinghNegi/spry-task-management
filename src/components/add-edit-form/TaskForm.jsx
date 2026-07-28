@@ -7,10 +7,10 @@ export default function TaskForm({
   onCancel = null,
 }) {
   const [formData, setFormData] = useState({
-    title: initialData.title || "test",
+    title: initialData.title || "",
     description: initialData.description || "",
     status: initialData.status || "pending",
-    dueDate: initialData.dueDate || "2026-07-22",
+    dueDate: initialData.dueDate || "",
   });
 
   const [errors, setErrors] = useState({});

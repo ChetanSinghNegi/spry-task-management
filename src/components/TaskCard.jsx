@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { getStyle } from "../utils/constants";
@@ -10,7 +10,6 @@ const TaskCard = (props) => {
     description = "",
     status = "",
     dueDate = "",
-    timestamp = "",
   } = props?.task;
   const [elementHovered, setElementHovered] = useState({});
 
@@ -68,7 +67,7 @@ const TaskCard = (props) => {
           </span>
         </div>
 
-        <p className="text-sm font-[cursive] text-pretty text-gray-700 max-h-36 overflow-auto flex-1">
+        <p className="text-sm font-[cursive] text-pretty text-gray-700 max-h-20 overflow-auto flex-1">
           {description}
         </p>
         <div className="  font-mono flex justify-between items-center ">

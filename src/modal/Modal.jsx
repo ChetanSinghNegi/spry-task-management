@@ -3,18 +3,19 @@ import { createPortal } from "react-dom";
 
 const Modal = (props) => {
   const { openModal, closeModal } = props;
-  const handleKeyDown = (e) => {
-    if (e.key === "Escape") {
-      closeModal();
-    }
-  };
 
   useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    };
+
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [closeModal]);
 
   if (!openModal) return <></>;
 
@@ -51,7 +52,6 @@ const Modal = (props) => {
                   color: "black",
                   margin: "20px",
                   marginTop: "40px",
-                  borderRadius: "8px",
                   width: "90%",
                   position: "relative",
                   maxHeight: "90%",
